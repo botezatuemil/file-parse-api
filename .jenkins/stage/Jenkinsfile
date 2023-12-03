@@ -3,10 +3,7 @@ pipeline {
     tools { 
         nodejs 'nodejs' 
     }
-    environment {
-        // Define DOCKER_HOST to point to the exposed Docker daemon
-        DOCKER_HOST = 'tcp://localhost:2375'
-    }
+    
     parameters {
         // Define a parameter for the branch name
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to build')
