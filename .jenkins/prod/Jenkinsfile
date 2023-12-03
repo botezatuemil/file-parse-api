@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools { 
+        nodejs 'nodejs' 
+    }
+
     parameters {
         // Define a parameter for the branch name
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to build')
