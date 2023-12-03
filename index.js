@@ -2,8 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import  { getSFBooks } from "./src/routes/sf_books.js";
-import  { getNONSFBooks } from "./src/routes/non_sf_books.js";
+import { getSFBooks } from "./src/routes/sf_books.js";
+import { getNONSFBooks } from "./src/routes/non_sf_books.js";
 
 dotenv.config();
 

@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    parameters {
+        // Define a parameter for the branch name
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to build')
+    }
+
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Use the parameter in the git step
+                git branch: "${params.BRANCH_NAME}", url: 'https://github.com/botezatuemil/file-parse-api.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Building the Docker image from Dockerfile
+                    // Replace 'myapp:local' with your desired image tag
+                    sh 'docker build -t btzemil/file-parse-api:stage .'
+                    // Stop the existing container if it's running
+                    sh 'docker stop file-parse-api-stage || true && docker rm file-parse-api-stage || true'
+
+                    // Run the new Docker container
+                    // Replace 'myapp:local' with your image tag
+                    // Adjust port mapping and other run options as needed
+                    sh 'docker run -d --name file-parse-api-stage -p 8080:3000 file-parse-api:stage'
+                }
+            }
+        }
+    }
+}
